@@ -140,7 +140,7 @@ fun AlertNewTodo(appState: MutableState<AppState>) {
 fun AlertDeleteTodo(appState: MutableState<AppState>) {
     val sp = appState.value.storageProvider
     AlertDialog(
-        onDismissRequest = { appState.value.closeDialog() },
+        onDismissRequest = { appState.value = appState.value.closeDialog() },
         confirmButton = {
             TextButton(onClick = {
                 sp.deleteEntry(appState.value.idDelete)
