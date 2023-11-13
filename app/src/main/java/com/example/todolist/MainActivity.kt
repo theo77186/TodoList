@@ -28,6 +28,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -96,7 +97,8 @@ fun TodoItem(appState: MutableState<AppState>, id: Int = 0, content: String = ""
     Row(modifier = Modifier
         .clickable(onClick = {})
         .padding(24.dp)
-        .fillMaxWidth()) {
+        .fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically) {
         Text(text = content, modifier = Modifier.weight(1f))
         Icon(Icons.Default.Delete, contentDescription = "Delete", modifier = Modifier.clickable(onClick = {
             appState.value = appState.value.deleteTodo(id)
