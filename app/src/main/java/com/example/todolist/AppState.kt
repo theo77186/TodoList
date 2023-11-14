@@ -32,6 +32,7 @@ class AppState {
         @JvmStatic
         private var mutableAppState: MutableState<AppState>? = null
 
+        @JvmStatic
         fun getState(): MutableState<AppState> {
             if (mutableAppState == null) {
                 mutableAppState = mutableStateOf(AppState())
