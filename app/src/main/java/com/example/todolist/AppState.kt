@@ -1,5 +1,8 @@
 package com.example.todolist
 
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+
 class AppState {
     var storageProvider: StorageProvider = DummyStorageProvider()
     var dialogId: Int = 0
@@ -23,5 +26,18 @@ class AppState {
         newState.dialogId = 2
         newState.idDelete = id
         return newState
+    }
+
+    companion object {
+        @JvmStatic
+        private var mutableAppState: MutableState<AppState>? = null
+
+        fun getState(): MutableState<AppState> {
+            if (mutableAppState == null) {
+                mutableAppState = mutableStateOf(AppState())
+                mutableAppState!!.value.storageProvider = InMemoryStorageProvider()
+            }
+            return mutableAppState as MutableState<AppState>
+        }
     }
 }

@@ -27,7 +27,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -37,8 +37,7 @@ import com.example.todolist.ui.theme.TodoListTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val appState = mutableStateOf(AppState())
-        appState.value.storageProvider = InMemoryStorageProvider()
+        val appState = AppState.getState()
         setContent {
             TodoListTheme {
                 // A surface container using the 'background' color from the theme
@@ -109,7 +108,7 @@ fun TodoItem(appState: MutableState<AppState>, id: Int = 0, content: String = ""
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AlertNewTodo(appState: MutableState<AppState>) {
-    val todoValue = remember { mutableStateOf("") }
+    val todoValue = rememberSaveable { mutableStateOf("") }
     AlertDialog(
         onDismissRequest = { appState.value = appState.value.closeDialog() },
         confirmButton = {
